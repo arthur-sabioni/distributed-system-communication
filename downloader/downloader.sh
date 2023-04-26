@@ -32,3 +32,19 @@ function download_file() {
         return 1
     fi
 }
+
+# Function to return all protein IDs in an array
+# Arguments: No argument needed
+function get_protein_ids() {
+
+    local url="https://data.rcsb.org/rest/v1/holdings/current/entry_ids"
+
+    echo "Downloading proteins from URL: $url"
+
+    # Download the file using wget
+    result=$(wget -qO "$url")
+
+    echo "Proteins fetched!"
+    return $result
+    
+}
