@@ -35,6 +35,7 @@ function download_file() {
 
 # Function to return all protein IDs in an array
 # Arguments: No argument needed
+# Usage: when called, will set a global variable "protein_ids" to the result
 function get_protein_ids() {
 
     local url="https://data.rcsb.org/rest/v1/holdings/current/entry_ids"
@@ -42,9 +43,16 @@ function get_protein_ids() {
     echo "Downloading proteins from URL: $url"
 
     # Download the file using wget
-    result=$(wget -qO "$url")
-
+    wget -q $url
+	protein_ids=`cat entry_ids`
     echo "Proteins fetched!"
-    return $result
+	rm -f entry_ids
     
 }
+
+#Usage of download file function
+#download_file '4hhb' '/home/aluno/Documentos/sd/downloader/4hhb.pdb'
+
+#Usage of get protein ids function
+#get_protein_ids
+#echo $protein_ids
